@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Kitty Door</string>
+    <string name="default_web_id" translatable="false">381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com</string>
+    <string name="default_notification_id" translatable="false">ms8.kittydoor.DOOR_DEFAULT</string>
+    <string name="channel_name">Kitty Door Standard Priority</string>
+    <string name="channel_description">Standard priority for kitty door notifications.</string>
+    <string name="kitty_door_is">Kitty Door Is:</string>
+    <string name="light_level_title">Light Level:</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="options">Options</string>
+    <string name="delayed_close">Delayed Closing</string>
+    <string name="close_after">Close After</string>
+    <string name="open_light_level">Open Light Level:</string>
+    <string name="close_light_level">Close Light Level</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="delayed_open">Delayed Opening</string>
+    <string name="auto_close_warning_title">Kitty Door Failure</string>
+    <string name="auto_close_warning_desc">Motor timeout detected. Possible hardware failure.</string>
+    <string name="kitty_door_open">Kitty Door Opened</string>
+    <string name="kitty_door_closed">Kitty Door Closed</string>
+    <string name="kittydoor_closed_msg">The kitty door was closed after attempting to open!</string>
+    <string name="kitty_door_open_msg">The kitty door was opened after attempting to close!</string>
+    <string name="hardware_override">Hardware Override:</string>
+    <string name="err_failed_signin_title">Failed to sign in</string>
+    <string name="err_failed_signin_msg">Something went wrong while singing in. Please try again.</string>
+    <string name="ok">OK</string>
+    <string name="hw_override_enabled">Hardware Override Enabled</string>
+    <string name="hw_override_enabled_msg">" Remote opening/closing is disabled while hardware override is enabled."</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+
+</resources>

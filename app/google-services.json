@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "381877255197",
+    "firebase_url": "https://home-controller-286c0.firebaseio.com",
+    "project_id": "home-controller-286c0",
+    "storage_bucket": "home-controller-286c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381877255197:android:4f160323a97468274b5af4",
+        "android_client_info": {
+          "package_name": "com.ms8.kittydoor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB374mY3x60slOz6wpA5bHCKfll3GoqmZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

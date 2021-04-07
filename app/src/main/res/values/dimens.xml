@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="option_spacing">12dp</dimen>
+    <dimen name="option_inner_spacing">8dp</dimen>
+    <dimen name="list_edge_margin">16dp</dimen>
+</resources>

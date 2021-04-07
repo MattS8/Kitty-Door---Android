@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/optionsRoot"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <Space
+            android:id="@+id/spaceStatusBar"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvOptionsTitle"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/options"
+            android:textSize="36sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swDelayClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/option_spacing"
+            android:switchPadding="24dp"
+            android:text="@string/delayed_close"
+            android:textOff="@string/delayed_close"
+            android:textOn="@string/delayed_close"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:textSize="14sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/layoutCloseAfter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/option_inner_spacing"
+            android:layout_marginTop="@dimen/option_spacing"
+            >
+
+            <TextView
+                android:id="@+id/tvCloseAfter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/close_after"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tvCloseAfterVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="30 minutes"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="4dp"
+                />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/sbCloseAfter"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:progress="0"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="@dimen/option_inner_spacing"
+            />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/swDelayOpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/option_spacing"
+            android:switchPadding="24dp"
+            android:text="@string/delayed_open"
+            android:textOff="@string/delayed_open"
+            android:textOn="@string/delayed_open"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:textSize="14sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/layoutOpenAfter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/option_inner_spacing"
+            android:layout_marginTop="@dimen/option_spacing"
+            >
+
+            <TextView
+                android:id="@+id/tvOpenAfter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/close_after"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tvOpenAfterVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="30 minutes"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="4dp"
+                />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/sbOpenAfter"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:progress="0"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginStart="@dimen/option_inner_spacing"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/list_edge_margin"
+            android:layout_marginLeft="@dimen/list_edge_margin"
+            android:layout_marginEnd="@dimen/list_edge_margin"
+            android:layout_marginRight="@dimen/list_edge_margin"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvOpenLightLevelLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/open_light_level"
+                android:textAppearance="@style/AppTheme.TextAppearance.OptionsTitle" />
+
+            <EditText
+                android:id="@+id/etOpenLightLevel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/list_edge_margin"
+            android:layout_marginLeft="@dimen/list_edge_margin"
+            android:layout_marginEnd="@dimen/list_edge_margin"
+            android:layout_marginRight="@dimen/list_edge_margin"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCloseLightLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/close_light_level"
+                android:textAppearance="@style/AppTheme.TextAppearance.OptionsTitle" />
+
+            <EditText
+                android:id="@+id/etCloseLightLevel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:visibility="gone"
+            android:id="@+id/swTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:textSize="14sp"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="32dp"
+            android:switchPadding="8dp"
+            android:text="@string/light_theme"
+            android:textOff="@string/light_theme"
+            android:textOn="@string/dark_theme" />
+
+    </LinearLayout>
+</layout>
