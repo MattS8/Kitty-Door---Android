@@ -1,8 +1,8 @@
 package com.ms8.kittydoor
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.CompoundButton
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.Observable
 import androidx.drawerlayout.widget.DrawerLayout
@@ -18,14 +19,12 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.andrognito.flashbar.Flashbar
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
+import com.ms8.kittydoor.AppState.DoorStatus.*
 import com.ms8.kittydoor.FirebaseMessageService.Companion.NOTIFICATION_TYPE
 import com.ms8.kittydoor.FirebaseMessageService.Companion.TYPE_AUTO_CLOSE_WARNING
 import com.ms8.kittydoor.databinding.ActivityMainBinding
 import com.ms8.kittydoor.databinding.DrawerOptionsBinding
-import com.ms8.kittydoor.AppState.DoorStatus.OPENING
-import com.ms8.kittydoor.AppState.DoorStatus.CLOSED
-import com.ms8.kittydoor.AppState.DoorStatus.OPEN
-import com.ms8.kittydoor.AppState.DoorStatus.CLOSING
+
 
 class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener,
     SeekBar.OnSeekBarChangeListener, View.OnClickListener {
@@ -56,11 +55,13 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         AppState.kittyDoorData.optionsData.addOnPropertyChangedCallback(doorOptionsListener)
         AppState.kittyDoorData.lightLevel.addOnPropertyChangedCallback(lightLevelListener)
         AppState.kittyDoorData.hwOverrideMode.addOnPropertyChangedCallback(hwOverrideListener)
+        AppState.kittyDoorData.overrideAuto.addOnPropertyChangedCallback(overrideAutoListener)
 
         updateStatusUI()
         updateOptionsUI()
         updateLightLevelUI()
         updateHWOverrideUI()
+        updateOverrideAutoUI()
 
         // Ensure backend listeners are running
         FirebaseDBF.listenToAllBackendData()
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         AppState.kittyDoorData.optionsData.removeOnPropertyChangedCallback(doorOptionsListener)
         AppState.kittyDoorData.lightLevel.removeOnPropertyChangedCallback(lightLevelListener)
         AppState.kittyDoorData.hwOverrideMode.removeOnPropertyChangedCallback(hwOverrideListener)
+        AppState.kittyDoorData.overrideAuto.removeOnPropertyChangedCallback(overrideAutoListener)
 
         AppState.appData.appInForeground = false
     }
@@ -92,6 +94,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             btnClose.setOnClickListener(this@MainActivity)
             btnCheckLightLevel.setOnClickListener(this@MainActivity)
             btnOptions.setOnClickListener(this@MainActivity)
+            btnEnableAuto.setOnClickListener(this@MainActivity)
         }
 
         doorProgressDrawable = AnimatedVectorDrawableCompat.create(this, R.drawable.av_progress)
@@ -114,6 +117,75 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         intent.extras?.getString(NOTIFICATION_TYPE)?.let {
             handleFCMNotification(it)
         }
+    }
+
+    private fun updateOverrideAutoUI() {
+        val overrideAutoEnabled = AppState.kittyDoorData.overrideAuto.get() ?: return
+
+        val states = arrayOf(intArrayOf(android.R.attr.state_enabled),
+                intArrayOf(-android.R.attr.state_enabled),
+                intArrayOf(-android.R.attr.state_checked),
+                intArrayOf(android.R.attr.state_pressed))
+
+        val colors = if(!overrideAutoEnabled)
+            intArrayOf(
+                ContextCompat.getColor(this@MainActivity, R.color.autoEnabled),
+                ContextCompat.getColor(this@MainActivity, R.color.autoDisabled),
+                ContextCompat.getColor(this@MainActivity, R.color.autoChecked),
+                ContextCompat.getColor(this@MainActivity, R.color.autoPressed)
+        ) else
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.autoDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoDisabledPressed)
+            )
+
+        val textColors = if (!overrideAutoEnabled)
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.autoText),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoTextDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoText),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoTextPressed)
+            ) else
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.autoTextDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoTextDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoTextDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.autoTextDisabledPressed)
+            )
+
+        val openColors = if (overrideAutoEnabled)
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpen),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpen),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpen),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpening)
+            ) else
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpenDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpenDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpenDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorOpenDisabledPressed)
+            )
+        val closeColors = if (overrideAutoEnabled)
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.colorClose),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorClose),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorClose),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorClosing)
+            ) else
+            intArrayOf(
+                    ContextCompat.getColor(this@MainActivity, R.color.colorCloseDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorCloseDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorCloseDisabled),
+                    ContextCompat.getColor(this@MainActivity, R.color.colorCloseDisabledPressed)
+            )
+
+        binding.btnOpen.backgroundTintList = ColorStateList(states, openColors)
+        binding.btnClose.backgroundTintList = ColorStateList(states, closeColors)
+        binding.btnEnableAuto.backgroundTintList = ColorStateList(states, colors)
+        binding.btnEnableAuto.setTextColor(ColorStateList(states,textColors))
     }
 
     private fun updateHWOverrideUI() {
@@ -295,6 +367,12 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             .title(R.string.auto_close_warning_title)
             .message(R.string.auto_close_warning_desc)
             .positiveActionText(android.R.string.ok)
+            .positiveActionText(android.R.string.ok)
+            .positiveActionTapListener(object : Flashbar.OnActionTapListener {
+                override fun onActionTapped(bar: Flashbar) {
+                    flashbar?.dismiss()
+                }
+            })
             .barDismissListener(flashbarDismissListener)
             .backgroundColor(getBackgroundColor())
             .titleAppearance(R.style.TextAppearance_MaterialComponents_Headline5)
@@ -313,6 +391,11 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             .title(R.string.hw_override_enabled)
             .message(R.string.hw_override_enabled_msg)
             .positiveActionText(android.R.string.ok)
+                .positiveActionTapListener(object : Flashbar.OnActionTapListener {
+                    override fun onActionTapped(bar: Flashbar) {
+                        flashbar?.dismiss()
+                    }
+                })
             .barDismissListener(flashbarDismissListener)
             .backgroundColor(getBackgroundColor())
             .titleAppearance(R.style.TextAppearance_MaterialComponents_Headline5)
@@ -320,6 +403,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             .positiveActionTextAppearance(R.style.AppTheme_TextAppearance_Flashbar_Warning_Positive)
             .negativeActionTextAppearance(R.style.TextAppearance_MaterialComponents_Body1)
             .build()
+        flashbar?.show()
     }
 
     private fun getBackgroundColor(): Int {
@@ -347,6 +431,15 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             R.id.btnOpen -> openKittyDoor()
             R.id.btnClose -> closeKittyDoor()
             R.id.btnOptions -> drawer.openDrawer()
+            R.id.btnEnableAuto -> enableAuto()
+        }
+    }
+
+    private fun enableAuto() {
+        Log.d(TAG, "### TEST")
+        AppState.kittyDoorData.optionsData.get()?.also {
+            AppState.kittyDoorData.overrideAuto.set(false)
+            FirebaseDBF.sendOptions(it)
         }
     }
 
@@ -355,6 +448,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         if (hwOverride != 0) {
             showHardwareOverrideNotification()
         } else {
+            AppState.kittyDoorData.overrideAuto.set(true)
             FirebaseDBF.closeKittyDoor()
         }
     }
@@ -364,6 +458,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         if (hwOverride != 0) {
             showHardwareOverrideNotification()
         } else {
+            AppState.kittyDoorData.overrideAuto.set(true)
             FirebaseDBF.openKittyDoor()
         }
     }
@@ -432,6 +527,14 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             updateHWOverrideUI()
         }
     }
+
+    private val overrideAutoListener = object: Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+            updateOverrideAutoUI()
+        }
+    }
+
+
 
     private val lightLevelListener = object: Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

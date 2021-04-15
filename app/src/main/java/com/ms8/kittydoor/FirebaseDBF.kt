@@ -66,7 +66,7 @@ object FirebaseDBF {
     private class DoorOptionsListener : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             try {
-                val snapshotValues = snapshot.value as Map<String, Any?>
+                val snapshotValues = snapshot.value as Map<*, *>
                 val newOptions = AppState.KittyOptions()
                 snapshotValues["openLightLevel"]?.also {
                     newOptions.openLightLevel = (it as Number).toInt()
@@ -85,6 +85,9 @@ object FirebaseDBF {
                 }
                 snapshotValues["delayClosingVal"]?.also {
                     newOptions.delayClosingVal = (it as Number).toLong()
+                }
+                snapshotValues["overrideAuto"]?.also {
+                    AppState.kittyDoorData.overrideAuto.set(it as Boolean)
                 }
                 AppState.kittyDoorData.optionsData.set(newOptions)
             } catch (e: Exception) {
@@ -164,10 +167,12 @@ object FirebaseDBF {
     }
     //
 
-private data class KittyDoorAction (val type: String, val a_timestamp: String)
-    // Send Commands
+//private data class KittyDoorAction (val type: String, val a_timestamp: String)
+//    // Send Commands
     fun sendOptions(options: AppState.KittyOptions) {
         options.o_timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
+        options.command = COMMAND_NONE
+        options.overrideAuto = AppState.kittyDoorData.overrideAuto.get() ?: false
         FirebaseDatabase.getInstance().reference
             .child(SYSTEMS)
             .child(KITTY_DOOR)
@@ -175,33 +180,36 @@ private data class KittyDoorAction (val type: String, val a_timestamp: String)
     }
 
     fun checkLightLevel() {
+        val options = AppState.kittyDoorData.optionsData.get() ?: return
+        options.o_timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
+        options.command = COMMAND_READ_LIGHT_LEVEL
+        options.overrideAuto = AppState.kittyDoorData.overrideAuto.get() ?: false
         FirebaseDatabase.getInstance().reference
-            .child(COMMANDS)
+            .child(SYSTEMS)
             .child(KITTY_DOOR)
-            .setValue(KittyDoorAction(
-                "readLightLevel",
-                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
-            ))
+            .setValue(options)
     }
 
     fun openKittyDoor() {
+        val options = AppState.kittyDoorData.optionsData.get() ?: return
+        options.o_timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
+        options.command = COMMAND_OPEN
+        options.overrideAuto = AppState.kittyDoorData.overrideAuto.get() ?: true
         FirebaseDatabase.getInstance().reference
-            .child(COMMANDS)
-            .child(KITTY_DOOR)
-            .setValue(KittyDoorAction(
-                "openKittyDoor",
-                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
-            ))
+                .child(SYSTEMS)
+                .child(KITTY_DOOR)
+                .setValue(options)
     }
 
     fun closeKittyDoor() {
+        val options = AppState.kittyDoorData.optionsData.get() ?: return
+        options.o_timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
+        options.command = COMMAND_CLOSE
+        options.overrideAuto = AppState.kittyDoorData.overrideAuto.get() ?: true
         FirebaseDatabase.getInstance().reference
-            .child(COMMANDS)
-            .child(KITTY_DOOR)
-            .setValue(KittyDoorAction(
-                "closeKittyDoor",
-                SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(Calendar.getInstance().time)
-            ))
+                .child(SYSTEMS)
+                .child(KITTY_DOOR)
+                .setValue(options)
     }
     //
 
@@ -227,4 +235,9 @@ private data class KittyDoorAction (val type: String, val a_timestamp: String)
     private const val DEVICE_TOKENS = "device_tokens"
     private const val ALL_TOKENS = "all_tokens"
     private const val STATUS = "status"
+
+    private const val COMMAND_NONE = "_none_"
+    private const val COMMAND_OPEN = "openKittyDoor"
+    private const val COMMAND_CLOSE = "closeKittyDoor"
+    private const val COMMAND_READ_LIGHT_LEVEL = "readLightLevel"
 }

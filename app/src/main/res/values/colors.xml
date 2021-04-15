@@ -22,4 +22,19 @@
     <color name="warningYellow">#ffeb3b</color>
     <color name="hw_enabled">#FFEB3B</color>
     <color name="hw_disabled">#5F5F5F</color>
+    <color name="colorAuto">#9AA0BD</color>
+    <color name="autoEnabled">#FFFFFF</color>
+    <color name="autoDisabled">#C5C7C2</color>
+    <color name="autoChecked">#AED581</color>
+    <color name="autoPressed">#7A7A7A</color>
+    <color name="autoDisabledPressed">#555353</color>
+    <color name="autoTextPressed">#1B1B1B</color>
+    <color name="autoText">#408A00</color>
+    <color name="autoTextDisabled">#717171</color>
+    <color name="autoTextDisabledPressed">#090909</color>
+    <color name="colorOpenPressed">#550000</color>
+    <color name="colorOpenDisabled">#855956</color>
+    <color name="colorOpenDisabledPressed">#7C5451</color>
+    <color name="colorCloseDisabled">#5F714A</color>
+    <color name="colorCloseDisabledPressed">#3D5322</color>
 </resources>

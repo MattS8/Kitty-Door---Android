@@ -13,7 +13,8 @@ object AppState {
         val previousStatus: ObservableField<DoorStatus?> = ObservableField(),
         val hwOverrideMode: ObservableField<Int?> = ObservableField(),
         val lightLevel: ObservableField<Int?> = ObservableField(),
-        val optionsData: ObservableField<KittyOptions> = ObservableField(KittyOptions())
+        val optionsData: ObservableField<KittyOptions?> = ObservableField(),
+        val overrideAuto: ObservableField<Boolean> = ObservableField(false)
     )
 
     data class KittyOptions(
@@ -23,7 +24,9 @@ object AppState {
         var delayClosing: Boolean = true,
         var delayOpeningVal: Long = 120,
         var delayClosingVal: Long = 120,
-        var o_timestamp: String = ""
+        var o_timestamp: String = "",
+        var command: String = "_none_",
+        var overrideAuto: Boolean = false
     )
 
     data class AppData (

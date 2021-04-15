@@ -11,17 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
-        app:srcCompat="@drawable/ic_more_vert_24dp"
+        android:contentDescription="@string/options"
         android:padding="24dp"
         android:tint="?colorButtonNormal"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
-        android:contentDescription="@string/options" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@drawable/ic_more_vert_24dp" />
 
     <TextView
         android:id="@+id/tvStatusLabel"
@@ -43,9 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorClosing"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStatusLabel"
         tools:text="TESTING" />
 
@@ -54,25 +54,27 @@
         style="@style/AppTheme.TextAppearance.Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="@string/light_level_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnClose" />
+        app:layout_constraintTop_toBottomOf="@id/btnClose"
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/tvLightLevel"
         style="@style/AppTheme.TextAppearance.Status"
-        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLightLevelTitle"
         tools:text="TESTING" />
 
@@ -91,36 +93,31 @@
         tools:tint="@color/colorOpen" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:id="@+id/btnOpen"
         style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/colorOpen"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="32dp"
-        android:minHeight="75dp"
         android:minWidth="150dp"
+        android:minHeight="75dp"
 
-        android:backgroundTint="@color/colorOpen"
-        app:layout_constraintBottom_toTopOf="@+id/btnClose"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnEnableAuto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStatus"
-        app:layout_constraintVertical_bias="0.15"
-        app:layout_constraintVertical_chainStyle="packed"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/progGarageStatus"
+        app:layout_constraintVertical_bias="0.13999999"
+        app:layout_constraintVertical_chainStyle="packed">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_expand_less_24dp"
-            />
+            android:src="@drawable/ic_expand_less_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -134,32 +131,28 @@
 
     <LinearLayout
         android:id="@+id/btnClose"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:minHeight="75dp"
+        android:backgroundTint="@color/colorClose"
         android:minWidth="150dp"
+        android:minHeight="75dp"
+        android:orientation="vertical"
         android:text="@string/close"
         android:textColor="@color/white"
-        android:backgroundTint="@color/colorClose"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvLightLevelTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnOpen"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/btnEnableAuto">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_expand_more_24dp"
-            />
+            android:src="@drawable/ic_expand_more_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -200,8 +193,8 @@
         app:layout_constraintStart_toEndOf="@+id/tvHardwareOverrideLabel"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:textColor="@color/hw_disabled"
-        tools:text="Disabled" />
+        tools:text="Disabled"
+        tools:textColor="@color/hw_disabled" />
 
     <Button
         android:id="@+id/btnCheckLightLevel"
@@ -213,5 +206,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLightLevel"
         app:layout_constraintVertical_bias="0.16000003" />
+
+    <Button
+        android:id="@+id/btnEnableAuto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Automatic"
+        app:layout_constraintBottom_toTopOf="@+id/btnClose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnOpen"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

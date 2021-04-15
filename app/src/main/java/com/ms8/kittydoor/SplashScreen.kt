@@ -11,14 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Observable
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import com.google.android.datatransport.runtime.backends.BackendResponse.ok
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.ms8.kittydoor.FirebaseMessageService.Companion.NOTIFICATION_TYPE
@@ -37,11 +35,15 @@ class SplashScreen : AppCompatActivity() {
         }
     }
 
-    private val statusListener = object : Observable.OnPropertyChangedCallback() {
+    private val backendListener = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-            if (AppState.kittyDoorData.status.get() != null) {
-                Log.d(TAG, "Received Status!")
+            val status = AppState.kittyDoorData.status.get()
+            val options = AppState.kittyDoorData.optionsData.get()
+            Log.d(TAG, "## - Received [status = $status | options = $options]")
+            if (AppState.kittyDoorData.status.get() != null && AppState.kittyDoorData.optionsData.get() != null) {
+                Log.d(TAG, "## - Received All Backend Data!")
                 AppState.kittyDoorData.status.removeOnPropertyChangedCallback(this)
+                AppState.kittyDoorData.optionsData.removeOnPropertyChangedCallback(this)
                 nextActivity()
             }
         }
@@ -70,7 +72,7 @@ class SplashScreen : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (auth.currentUser != null) {
-            if (AppState.kittyDoorData.status.get() != null)
+            if (AppState.kittyDoorData.status.get() != null && AppState.kittyDoorData.optionsData.get() != null)
                 nextActivity()
             else
                 fetchBackendData()
@@ -83,7 +85,8 @@ class SplashScreen : AppCompatActivity() {
         super.onPause()
 
         if (auth.currentUser != null) {
-            AppState.kittyDoorData.status.removeOnPropertyChangedCallback(statusListener)
+            AppState.kittyDoorData.status.removeOnPropertyChangedCallback(backendListener)
+            AppState.kittyDoorData.optionsData.removeOnPropertyChangedCallback(backendListener)
         }
     }
 
@@ -171,7 +174,8 @@ class SplashScreen : AppCompatActivity() {
         if (binding.progressBar.alpha != 1f)
             startProgressView()
         Log.d(TAG, "fetching backend data...")
-        AppState.kittyDoorData.status.addOnPropertyChangedCallback(statusListener)
+        AppState.kittyDoorData.status.addOnPropertyChangedCallback(backendListener)
+        AppState.kittyDoorData.optionsData.addOnPropertyChangedCallback(backendListener)
         FirebaseDBF.listenForKittyDoorStatus()
         FirebaseDBF.listenForOptionChanges()
 
