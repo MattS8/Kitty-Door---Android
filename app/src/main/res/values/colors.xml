@@ -16,7 +16,7 @@
 
     <color name="colorClose">#008a00</color>
     <color name="colorClosing">#60a917</color>
-    <color name="colorOpen">#a20025</color>
+    <color name="colorOpen">#D60031</color>
     <color name="colorOpening">#a0522d</color>
     <color name="colorPaused">#a20025</color>
     <color name="warningYellow">#ffeb3b</color>

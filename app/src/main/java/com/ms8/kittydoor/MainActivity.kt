@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         updateHWOverrideUI()
         updateOverrideAutoUI()
 
+        if (AppState.appData.drawerOpen)
+            drawer.openDrawer()
+        else
+            drawer.closeDrawer()
+
         // Ensure backend listeners are running
         FirebaseDBF.listenToAllBackendData()
     }
@@ -78,6 +83,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         AppState.kittyDoorData.overrideAuto.removeOnPropertyChangedCallback(overrideAutoListener)
 
         AppState.appData.appInForeground = false
+        AppState.appData.drawerOpen = drawer.isDrawerOpen
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

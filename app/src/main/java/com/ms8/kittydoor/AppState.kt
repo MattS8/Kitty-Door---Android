@@ -30,7 +30,8 @@ object AppState {
     )
 
     data class AppData (
-            var appInForeground: Boolean = false
+            var appInForeground: Boolean = false,
+            var drawerOpen: Boolean = false
     )
 
     enum class DoorStatus {CLOSED, CLOSING, OPEN, OPENING, PAUSED}
