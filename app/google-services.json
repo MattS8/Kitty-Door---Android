@@ -8,12 +8,49 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:381877255197:android:9dd59452f67d88ea4b5af4",
+        "android_client_info": {
+          "package_name": "com.ms8.homecontroller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB374mY3x60slOz6wpA5bHCKfll3GoqmZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:381877255197:android:4f160323a97468274b5af4",
         "android_client_info": {
           "package_name": "com.ms8.kittydoor"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "381877255197-1l99dcjgrh0n3056qd6vmattsrqb7t91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ms8.kittydoor",
+            "certificate_hash": "ec78e75466d6ec8fb0e560803180e276d2de2e29"
+          }
+        },
         {
           "client_id": "381877255197-niva4gcoocqme9n3h87k558g1i026b58.apps.googleusercontent.com",
           "client_type": 3

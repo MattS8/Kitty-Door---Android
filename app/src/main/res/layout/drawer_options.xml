@@ -203,5 +203,19 @@
             android:textOff="@string/light_theme"
             android:textOn="@string/dark_theme" />
 
+        <Button
+            android:id="@+id/btnViewDoorLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_door_log" />
+
+        <TextView
+            android:id="@+id/tvVersionNumber"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:text="@string/optionsVersion"
+            />
+
     </LinearLayout>
 </layout>

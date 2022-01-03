@@ -10,9 +10,42 @@ import com.google.firebase.database.ValueEventListener
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 object FirebaseDBF {
+    // Debug Response Object
+    data class FirebaseDebugMessage(var timestamp : String, var message : String)
+
     // Listeners
+    fun getDebugMessages() {
+        val db = FirebaseDatabase.getInstance()
+
+        db.reference
+            .child("debug")
+            .child("kitty_door")
+            .child("messages")
+            .get()
+            .addOnSuccessListener { dataSnapshot -> setDebugLogs(dataSnapshot) }
+            .addOnFailureListener { failure -> Log.e(TAG, "getDebugMessages - ${failure.message}") }
+    }
+    private fun setDebugLogs(snapshotValue: DataSnapshot)
+    {
+        try {
+            val newLogs = ArrayList<FirebaseDebugMessage>()
+            snapshotValue.children.forEach { logSnapshot ->
+                run {
+                    val logMap = logSnapshot.value as HashMap<*, *>
+                    val timestamp = logMap["timestamp"] as String
+                    val message = logMap["message"] as String
+                    newLogs.add(FirebaseDebugMessage(timestamp, message))
+                }
+            }
+
+            AppState.kittyDoorData.debugMessages.set(newLogs)
+        } catch (e:Exception) { Log.e(TAG, "setDebugLogs - $e") }
+    }
+
     private var kittyDoorListener: KittyDoorListener? = null
     private class KittyDoorListener : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {

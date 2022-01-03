@@ -30,5 +30,8 @@
     <string name="hw_override_enabled_msg">" Remote opening/closing is disabled while hardware override is enabled."</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
+    <string name="view_door_log">View Door Log</string>
+    <string name="back">Back</string>
+    <string name="optionsVersion">Version: 1.0</string>
 
 </resources>

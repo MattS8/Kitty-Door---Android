@@ -1,6 +1,7 @@
 package com.ms8.kittydoor
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -310,6 +311,8 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
         optionsBinding.optionsRoot
             .setBackgroundColor(getBackgroundColor())
 
+        optionsBinding.btnViewDoorLog.setOnClickListener(this@MainActivity)
+
         // Set up Options drawer
         drawer = DrawerBuilder()
             .withActivity(this)
@@ -321,6 +324,12 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             .build()
         drawer.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN)
         drawer.closeDrawer()
+    }
+
+    private fun showLogViewer() {
+        startActivity(Intent(this, LogViewerActivity::class.java).also {
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        })
     }
 
     private fun updateCLoseLightLevel() {
@@ -438,6 +447,7 @@ class MainActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener
             R.id.btnClose -> closeKittyDoor()
             R.id.btnOptions -> drawer.openDrawer()
             R.id.btnEnableAuto -> enableAuto()
+            R.id.btnViewDoorLog -> showLogViewer()
         }
     }
 

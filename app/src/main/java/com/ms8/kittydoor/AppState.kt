@@ -14,7 +14,8 @@ object AppState {
         val hwOverrideMode: ObservableField<Int?> = ObservableField(),
         val lightLevel: ObservableField<Int?> = ObservableField(),
         val optionsData: ObservableField<KittyOptions?> = ObservableField(),
-        val overrideAuto: ObservableField<Boolean> = ObservableField(false)
+        val overrideAuto: ObservableField<Boolean> = ObservableField(false),
+        val debugMessages: ObservableField<ArrayList<FirebaseDBF.FirebaseDebugMessage>> = ObservableField(ArrayList())
     )
 
     data class KittyOptions(

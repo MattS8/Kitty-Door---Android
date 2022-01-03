@@ -11,10 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KittyDoor"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".SplashScreen"
-            android:theme="@style/Theme.KittyDoor.Launcher"
-            >
+        <activity
+            android:name=".LogViewerActivity"
+            android:exported="true" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true"
+            android:theme="@style/Theme.KittyDoor.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
